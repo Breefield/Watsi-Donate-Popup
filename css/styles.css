@@ -1,0 +1,185 @@
+/* TOOD: Use sass/less, add a preprocessor to this repo */
+
+body { padding: 20px; }
+
+#watsi {
+  position: relative;
+  border: 1px solid #C8C8C8;
+  background: #FFF;
+  border-top: 6px solid #2D82D4;
+  width: 275px;
+  border-radius: 6px;
+  min-height: 100px;
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 18px;
+  font-size: 14px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  
+  /* Fade in */
+  opacity: 0;
+  
+  -webkit-transform: scale(0.1);
+  -moz-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  transform: scale(0.1);
+
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+#watsi.loaded {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+#watsi .section {
+  padding: 10px;
+  border-bottom: 1px solid #DDDDDD;
+  clear: both;
+}
+
+#watsi a {
+   text-decoration: none;
+}
+#watsi a:hover {
+  text-decoration: underline;
+}
+
+#watsi .info-bar .more {
+  float: right;
+  color: #AAAAAA;
+  font-size: 12px;
+  padding: 0px;
+}
+
+#watsi h1 {
+  font-size: 18px;
+  font-weight: 400;
+  color: #444444;
+  margin: 0px 0px 10px;
+}
+
+#watsi #patient-photo {
+  width: 100%;
+}
+
+#watsi #patient-summary {
+  color: #444444;
+  margin: 10px 0 0px;
+  font-size: 12px
+}
+
+#watsi #more-link {
+  color: #0087CC;
+  float: right;
+}
+
+#watsi .patient {
+  border-bottom: 0px;
+}
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {clear: both;}
+.cf {*zoom: 1;}
+
+/* Add an arrow to the box */
+#watsi:after, #watsi:before {
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+#watsi:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 10px;
+}
+
+#watsi:before {
+  border-color: rgba(201, 201, 201, 0);
+  border-width: 11px;
+}
+
+/* bottom */
+#watsi.arrow-bottom:after,
+#watsi.arrow-bottom:before{
+  top: 100%;
+}
+
+#watsi.arrow-bottom:after {
+  border-top-color: #fff;
+  left: 50%;
+  margin-left: -10px;
+}
+
+#watsi.arrow-bottom:before {
+  border-top-color: #C9C9C9;
+  left: 50%;
+  margin-left: -11px;
+}
+
+/* top */
+#watsi.arrow-top:after,
+#watsi.arrow-top:before{
+  bottom: 100%;
+}
+
+#watsi.arrow-top:after {
+  border-bottom-color: #2D82D4;
+  left: 50%;
+  margin-left: -10px;
+}
+
+#watsi.arrow-top:before {
+  border-bottom-color: #2D82D4;
+  left: 50%;
+  margin-left: -11px;
+}
+
+/* left */
+#watsi.arrow-left:after,
+#watsi.arrow-left:before{
+  right: 100%;
+}
+
+#watsi.arrow-left:after {
+  border-right-color: #fff;
+  top: 50%;
+  margin-top: -10px;
+}
+
+#watsi.arrow-left:before {
+  border-right-color: #C9C9C9;
+  top: 50%;
+  margin-top: -11px;
+}
+
+/* right */
+#watsi.arrow-right:after,
+#watsi.arrow-right:before{
+  left: 100%;
+}
+
+#watsi.arrow-right:after {
+  border-left-color: #fff;
+  top: 50%;
+  margin-top: -10px;
+}
+
+#watsi.arrow-right:before {
+  border-left-color: #C9C9C9;
+  top: 50%;
+  margin-top: -11px;
+}
