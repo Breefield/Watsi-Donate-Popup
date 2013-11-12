@@ -53,9 +53,9 @@ Get the latest NPM this way (or (brew)[http://brew.sh/] it)
 curl http://npmjs.org/install.sh | sh
 ```
 
-After installing run:
+After installing run and your SASS files will be watched :)
 ```
-npm install
+grunt
 ```
 
 ### Deployment
