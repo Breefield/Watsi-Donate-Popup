@@ -5,7 +5,7 @@ The Watsi Donate Popup is meant to be included on any website so that users can 
 ## Example!
 
 The popup so far:
-http://s3.amazonaws.com/watsi-donate-popup/example.html
+http://s3.amazonaws.com/watsi-donate-popup
 
 You can play with it right now in this codepen, which is going to quickly become dated
 http://codepen.io/anon/pen/Fyvtd
