@@ -43,7 +43,7 @@ module.exports = function(grunt) {
               },
               {
                 root: __dirname
-                , src:  'example.html'
+                , src:  '*.html'
                 , dest: 'v1'
               },
               {
