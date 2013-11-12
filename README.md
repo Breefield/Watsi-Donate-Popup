@@ -39,7 +39,7 @@ The best way to do this is to work with Stripe/Balanced to give the money to Wat
 
 [Humble Bundle](https://www.humblebundle.com/) is a great example, but they take money then pay out charities. An awesome one-step process for customers, but harder to scale (for a plugin like this).
 
-#### Development
+# Contributing
  
 I'm trying out NPM + Grunt to watch my SASS, etc for the first time.
 Some links to get started if you are unfamiliar with these.
@@ -53,4 +53,22 @@ curl http://npmjs.org/install.sh | sh
 After installing run:
 ```
 npm install
+```
+
+### Deployment
+I will be managing deployments to https://s3.amazonaws.com/watsi-donate-popup/example.html
+However, if you care to deploy this on your own Amazon S3 bucket, just make the following file and fill it with your credentials/bucket.
+
+config/aws.json
+```
+{
+  "key": "",
+  "secret": "",
+  "bucket": ""
+}
+```
+
+Then run
+```
+grunt grunt s3-sync
 ```
