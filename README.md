@@ -48,7 +48,7 @@ I'm trying out NPM + Grunt to watch my SASS, etc for the first time.
 Some links to get started if you are unfamiliar with these.
 http://gruntjs.com/getting-started
 
-Get the latest NPM this way or (brew)[http://brew.sh/] it
+Get the latest NPM this way or brew (http://brew.sh) it
 ```
 curl http://npmjs.org/install.sh | sh
 ```
