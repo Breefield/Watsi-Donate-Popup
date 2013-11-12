@@ -6,6 +6,7 @@ The Watsi Donate Popup is meant to be included on any website so that users can 
 
 The popup so far:
 http://codepen.io/anon/pen/Fyvtd
+
 ![Watsi Donate Popup](http://f.cl.ly/items/2D023a2S2u3h3C3U2L0G/Screen%20Shot%202013-11-11%20at%205.16.38%20PM.png)
 
 ### Problems?
