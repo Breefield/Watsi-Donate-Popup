@@ -4,7 +4,7 @@ Array.prototype.randomElement = function () {
 }
 
 // TODO: Do not use jsonp.jit.su
-$.ajax('http://jsonp.jit.su/?url=https://watsi.org/fund-treatments.json', {
+$.ajax('http://watsi-api-proxy.herokuapp.com/?url=https://watsi.org/fund-treatments.json', {
   dataType: 'jsonp', // We have JSON, but cross domain :(
   success: function(patients) {
     renderProfile(patients.profiles.randomElement());

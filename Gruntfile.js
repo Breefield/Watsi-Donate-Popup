@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     },
 
     aws: grunt.file.readJSON('./config/aws.json'),
-    's3-sync': {
+    'deploy': {
       options: {
           key: '<%= aws.key %>'
         , secret: '<%= aws.secret %>'
