@@ -58,6 +58,6 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-s3-sync');
+  grunt.loadNpmTasks('deploy');
   grunt.registerTask('default', ['watch']);
 }
