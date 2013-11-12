@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     },
 
     aws: grunt.file.readJSON('./config/aws.json'),
-    'deploy': {
+    's3-sync': {
       options: {
           key: '<%= aws.key %>'
         , secret: '<%= aws.secret %>'
@@ -58,6 +58,6 @@ module.exports = function(grunt) {
   });
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('deploy');
+  grunt.loadNpmTasks('grunt-s3-sync');
   grunt.registerTask('default', ['watch']);
 }
