@@ -38,3 +38,19 @@ The overall problem is that Watsi can't just "receive" money through an API, the
 The best way to do this is to work with Stripe/Balanced to give the money to Watsi. Stripe is an obvious option because Watsi & Stripe are both YC. Balanced is an "Open Company" though, and it may be able to move the issue up their github fairly quicky, a Crowdtilt integration would be cool.
 
 [Humble Bundle](https://www.humblebundle.com/) is a great example, but they take money then pay out charities. An awesome one-step process for customers, but harder to scale (for a plugin like this).
+
+#### Development
+ 
+I'm trying out NPM + Grunt to watch my SASS, etc for the first time.
+Some links to get started if you are unfamiliar with these.
+http://gruntjs.com/getting-started
+
+Get the latest NPM this way (or (brew)[http://brew.sh/] it)
+```
+curl http://npmjs.org/install.sh | sh
+```
+
+After installing run:
+```
+npm install
+```

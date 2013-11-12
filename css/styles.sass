@@ -1,0 +1,145 @@
+/* TOOD: Use sass/less, add a preprocessor to this repo
+
+body
+  padding: 20px
+
+#watsi
+  position: relative
+  border: 1px solid #C8C8C8
+  background: #FFF
+  border-top: 6px solid #2D82D4
+  width: 275px
+  border-radius: 6px
+  min-height: 100px
+  font-family: Helvetica, Arial, sans-serif
+  line-height: 18px
+  font-size: 14px
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15)
+  margin: 0 auto
+  /* Fade in
+  opacity: 0
+  -webkit-transform: scale(0.1)
+  -moz-transform: scale(0.1)
+  -ms-transform: scale(0.1)
+  transform: scale(0.1)
+  -webkit-transition: all 0.3s
+  -moz-transition: all 0.3s
+  transition: all 0.3s
+  &.loaded
+    opacity: 1
+    -webkit-transform: scale(1)
+    -moz-transform: scale(1)
+    -ms-transform: scale(1)
+    transform: scale(1)
+  .section
+    padding: 10px
+    border-bottom: 1px solid #DDDDDD
+    clear: both
+  a
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+  .info-bar .more
+    float: right
+    color: #AAAAAA
+    font-size: 12px
+    padding: 0px
+  h1
+    font-size: 18px
+    font-weight: 400
+    color: #444444
+    margin: 0px 0px 10px
+  #patient-photo
+    width: 100%
+  #patient-summary
+    color: #444444
+    margin: 10px 0 0px
+    font-size: 12px
+  #more-link
+    color: #0087CC
+    float: right
+  .patient
+    border-bottom: 0px
+
+.cf
+  &:before
+    content: " "
+    /* 1
+    display: table
+    /* 2
+  &:after
+    content: " "
+    /* 1
+    display: table
+    /* 2
+    clear: both
+  *zoom: 1
+
+/* Add an arrow to the box
+
+#watsi
+  &:after, &:before
+    border: solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+  &:after
+    border-color: rgba(255, 255, 255, 0)
+    border-width: 10px
+  &:before
+    border-color: rgba(201, 201, 201, 0)
+    border-width: 11px
+  &.arrow-bottom
+    &:after, &:before
+      top: 100%
+    &:after
+      border-top-color: #fff
+      left: 50%
+      margin-left: -10px
+    &:before
+      border-top-color: #C9C9C9
+      left: 50%
+      margin-left: -11px
+  &.arrow-top
+    &:after, &:before
+      bottom: 100%
+    &:after
+      border-bottom-color: #2D82D4
+      left: 50%
+      margin-left: -10px
+    &:before
+      border-bottom-color: #2D82D4
+      left: 50%
+      margin-left: -11px
+  &.arrow-left
+    &:after, &:before
+      right: 100%
+    &:after
+      border-right-color: #fff
+      top: 50%
+      margin-top: -10px
+    &:before
+      border-right-color: #C9C9C9
+      top: 50%
+      margin-top: -11px
+  &.arrow-right
+    &:after, &:before
+      left: 100%
+    &:after
+      border-left-color: #fff
+      top: 50%
+      margin-top: -10px
+    &:before
+      border-left-color: #C9C9C9
+      top: 50%
+      margin-top: -11px
+
+/* bottom
+
+/* top
+
+/* left
+
+/* right
