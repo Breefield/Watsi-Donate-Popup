@@ -1,6 +1,30 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    // Banner definitions
+    meta: {
+      banner: "/*\n" +
+        " *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
+        " *  <%= pkg.description %>\n" +
+        " *  <%= pkg.homepage %>\n" +
+        " *\n" +
+        " *  Made by <%= pkg.author.name %>\n" +
+        " *  Under <%= pkg.licenses[0].type %> License\n" +
+        " */\n"
+    },
+
+    // Concat definitions
+    concat: {
+      dist: {
+        src: ["js/jquery.watsi-popup.js"],
+        dest: "dist/jquery.watsi-popup.js"
+      },
+      options: {
+        banner: "<%= meta.banner %>"
+      }
+    },
+
     // Used to precompile sass files
     sass: {
       dist: {
@@ -13,7 +37,18 @@ module.exports = function(grunt) {
         }]
       }
     },
-    
+
+    // Minify definitions
+    uglify: {
+      dist: {
+        src: ["dist/jquery.watsi-popup.js"],
+        dest: "dist/jquery.watsi-popup.min.js"
+      },
+      options: {
+        banner: "<%= meta.banner %>"
+      }
+    },
+
     // Used to watch SASS files
     watch: {
       css: {
@@ -22,6 +57,7 @@ module.exports = function(grunt) {
       }
     },
 
+    // Deploy to S3
     aws: grunt.file.readJSON('./config/aws.json'),
     's3-sync': {
       options: {
@@ -56,8 +92,14 @@ module.exports = function(grunt) {
     },
 
   });
+
+  grunt.loadNpmTasks("grunt-contrib-concat");
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-s3-sync');
+
   grunt.registerTask('default', ['watch']);
+  grunt.registerTask('deploy', ['concat', 'uglify', 's3-sync']);
+
 }
