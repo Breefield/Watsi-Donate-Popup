@@ -18,10 +18,10 @@ body {
   margin: 0 auto;
   /* Fade in */
   opacity: 0;
-  -webkit-transform: scale(0.1);
-  -moz-transform: scale(0.1);
-  -ms-transform: scale(0.1);
-  transform: scale(0.1);
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
@@ -48,11 +48,19 @@ body {
     text-decoration: none; }
     .watsi-popup a:hover {
       text-decoration: underline; }
-  .watsi-popup .info-bar .more {
+  .watsi-popup .info-bar .close {
     float: right;
     color: #aaaaaa;
     font-size: 12px;
-    padding: 0px; }
+    padding: 5px;
+    margin-top: -5px;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s; }
+    .watsi-popup .info-bar .close:hover {
+      color: #333333; }
   .watsi-popup h1 {
     font-size: 18px;
     font-weight: 400;

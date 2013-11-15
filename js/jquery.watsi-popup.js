@@ -49,6 +49,10 @@
         this.positionPopup();
         this.$popup.toggleClass('open', this.$el.prop('checked'));
       }, this));
+
+      this.$popup.find('.close').on('click', $.proxy(function() {
+        this.$popup.removeClass('open');
+      }, this));
     },
 
     // Obviously this is not ideal, but it works
@@ -60,7 +64,7 @@
           '<span class="css-tester"></span>' + 
           '<div class="info-bar section">' +
             '<a href="https://watsi.org/" target="_blank"><img src="img/watsi-small.png" width="55"/></a>' + 
-            '<a class="more" href="https://watsi.org/" target="_blank">what is watsi?</a>' + 
+            '<span class="close">&#10006;</span>' + 
           '</div>' + 
           '<div class="patient section cf">' + 
             '<h1 class="patient-title"></h1>' + 
@@ -117,7 +121,6 @@
     },
 
     openWatsi: function() {
-      console.log(this);
       var center = {x: ($(window).width() / 2) - (985 / 2), y: 150};
       var new_window = window.open(this.current_profile.url, '',
               'height=560,width=985,location=false,toolbar=false,menubar=false,screenX=' + center.x + ',screenY=' + center.y + ',left' + center.x + ',top' + center.y);
