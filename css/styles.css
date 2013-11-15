@@ -3,6 +3,7 @@ body {
   padding: 20px; }
 
 .watsi-popup {
+  display: block;
   position: absolute;
   border: 1px solid #c8c8c8;
   background: white;

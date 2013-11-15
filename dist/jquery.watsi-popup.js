@@ -78,7 +78,14 @@
     findOrInjectCSS: function() {
       // No CSS found, time to inject
       if(this.$popup.find('.css-tester').css('background') != 'red') {
-        $('body').append('<link href="https://s3.amazonaws.com/watsi-donate-popup/css/styles.css" media="all" rel="stylesheet" />');
+        $css = $('<link href="https://s3.amazonaws.com/watsi-donate-popup/css/styles.css" media="all" rel="stylesheet" />').
+          on('load', $.proxy(function() {
+            this.$popup.css('display', 'block');
+          }, this));
+
+        $('body').append($css);
+      } else {
+        this.$popup.css('display', 'block');
       }
     },
 
