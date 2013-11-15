@@ -25,8 +25,16 @@ body
   -webkit-transition: all 0.3s
   -moz-transition: all 0.3s
   transition: all 0.3s
-  
-  &.loaded
+  visibility: hidden
+
+  &.arrow-left
+    margin-left: -45px
+
+  &.open
+    margin-left: 0px
+
+  &.loaded.open
+    visibility: visible
     opacity: 1
     -webkit-transform: scale(1)
     -moz-transform: scale(1)
@@ -99,7 +107,7 @@ body
   *zoom: 1
 
 /* Add an arrow to the box
-#watsi
+.watsi-popup
   &:after, &:before
     border: solid transparent
     content: " "
@@ -115,7 +123,7 @@ body
     border-width: 11px
 
   // Bottom
-  &.arrow-bottom
+  &.align-top
     &:after, &:before
       top: 100%
     &:after
@@ -128,7 +136,7 @@ body
       margin-left: -11px
 
   // Top
-  &.arrow-top
+  &.align-bottom
     &:after, &:before
       bottom: 100%
     &:after
@@ -141,7 +149,7 @@ body
       margin-left: -11px
 
   // Left
-  &.arrow-left
+  &.align-right
     &:after, &:before
       right: 100%
     &:after
@@ -154,7 +162,7 @@ body
       margin-top: -11px
 
   // Right
-  &.arrow-right
+  &.align-left
     &:after, &:before
       left: 100%
     &:after

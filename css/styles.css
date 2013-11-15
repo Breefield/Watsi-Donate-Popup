@@ -23,8 +23,14 @@ body {
   transform: scale(0.1);
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
-  transition: all 0.3s; }
-  .watsi-popup.loaded {
+  transition: all 0.3s;
+  visibility: hidden; }
+  .watsi-popup.arrow-left {
+    margin-left: -45px; }
+  .watsi-popup.open {
+    margin-left: 0px; }
+  .watsi-popup.loaded.open {
+    visibility: visible;
     opacity: 1;
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -87,56 +93,56 @@ body {
     clear: both; }
 
 /* Add an arrow to the box */
-#watsi:after, #watsi:before {
+.watsi-popup:after, .watsi-popup:before {
   border: solid transparent;
   content: " ";
   height: 0;
   width: 0;
   position: absolute;
   pointer-events: none; }
-#watsi:after {
+.watsi-popup:after {
   border-color: rgba(255, 255, 255, 0);
   border-width: 10px; }
-#watsi:before {
+.watsi-popup:before {
   border-color: rgba(201, 201, 201, 0);
   border-width: 11px; }
-#watsi.arrow-bottom:after, #watsi.arrow-bottom:before {
+.watsi-popup.align-top:after, .watsi-popup.align-top:before {
   top: 100%; }
-#watsi.arrow-bottom:after {
+.watsi-popup.align-top:after {
   border-top-color: white;
   left: 50%;
   margin-left: -10px; }
-#watsi.arrow-bottom:before {
+.watsi-popup.align-top:before {
   border-top-color: #c9c9c9;
   left: 50%;
   margin-left: -11px; }
-#watsi.arrow-top:after, #watsi.arrow-top:before {
+.watsi-popup.align-bottom:after, .watsi-popup.align-bottom:before {
   bottom: 100%; }
-#watsi.arrow-top:after {
+.watsi-popup.align-bottom:after {
   border-bottom-color: #2d82d4;
   left: 50%;
   margin-left: -10px; }
-#watsi.arrow-top:before {
+.watsi-popup.align-bottom:before {
   border-bottom-color: #2d82d4;
   left: 50%;
   margin-left: -11px; }
-#watsi.arrow-left:after, #watsi.arrow-left:before {
+.watsi-popup.align-right:after, .watsi-popup.align-right:before {
   right: 100%; }
-#watsi.arrow-left:after {
+.watsi-popup.align-right:after {
   border-right-color: white;
   top: 50%;
   margin-top: -10px; }
-#watsi.arrow-left:before {
+.watsi-popup.align-right:before {
   border-right-color: #c9c9c9;
   top: 50%;
   margin-top: -11px; }
-#watsi.arrow-right:after, #watsi.arrow-right:before {
+.watsi-popup.align-left:after, .watsi-popup.align-left:before {
   left: 100%; }
-#watsi.arrow-right:after {
+.watsi-popup.align-left:after {
   border-left-color: white;
   top: 50%;
   margin-top: -10px; }
-#watsi.arrow-right:before {
+.watsi-popup.align-left:before {
   border-left-color: #c9c9c9;
   top: 50%;
   margin-top: -11px; }

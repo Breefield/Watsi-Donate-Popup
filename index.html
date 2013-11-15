@@ -5,22 +5,28 @@
     <title>Watsi Donate Popup Example</title>  
     <!-- JS plugin should bring these in -->
     <link href="css/styles.css" media="all" rel="stylesheet" />
+    <link href="css/example.css" media="all" rel="stylesheet" />
   
   </head>
 
   <body>
-    <!-- This should be a single input field with attributes which the Javascript attaches too -->
 
-    <form action="#">
-      <button id="donate">I'd like to donate</button>
+    <form action="" method="post">
+      <!-- <img src="http://teespring.com/uploads/2013/11/15/00/160392/shirtFront.jpg?v=2013-11-15%2001%3A06%3A04" class="shirt"/> -->
+      <label for="donate">Donate to Watsi</label>
+      <input type="checkbox" id="donate" name="donate" watsi-align></input>
+      <input type="submit" value="Purchase"></input>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="js/jquery.watsi-popup.js"></script>
     
     <script>
+
       $(function() {
-        $("#donate").watsiDonatePopup({});
+        $("#donate").watsiDonatePopup({
+          align: 'right'
+        });
       });
     </script>
 

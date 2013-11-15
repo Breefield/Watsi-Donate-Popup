@@ -46,13 +46,27 @@
 
   Plugin.prototype = {
     init: function () {
+      this.popup_align = this.$el.attr('watsi-align') || this.options['align'] || 'top';
+
       this.buildPopupElement();
       this.loadPatients();
+
+      this.$el.on('change', $.proxy(function() {
+        this.positionPopup();
+        this.$popup.toggleClass('open', this.$el.prop('checked'));
+      }, this));
+
+      this.$popup.find('.patient-more-link').on('click', $.proxy(function() {
+        this.$popup.removeClass('open');
+      }, this));
     },
 
+    // Obviously this is not ideal, but it works
+    // considering the popup is fairly simple right now.
+    // TODO: Move this elsewhere
     buildPopupElement: function () {
       var template = 
-        '<div class="watsi-popup" class="arrow-bottom">' + 
+        '<div class="watsi-popup">' + 
           '<div class="info-bar section">' +
             '<a href="https://watsi.org/" target="_blank"><img src="img/watsi-small.png" width="55"/></a>' + 
             '<a class="more" href="https://watsi.org/" target="_blank">what is watsi?</a>' + 
@@ -65,6 +79,44 @@
           '</div>' + 
         '</div>';
       this.$popup = $(template).insertBefore(this.$el);
+      this.$popup.addClass("align-" + (this.popup_align))
+
+      this.$popup.parent().css('position', 'relative');
+    },
+
+    positionPopup: function() {
+      var pos = this.$el.position();
+      var arrow_offset = 15;
+
+      switch(this.popup_align) {
+        case 'left':
+          this.$popup.css({
+            'top': pos.top + (this.$el.outerHeight() / 2) - (this.$popup.outerHeight() / 2),
+            'left': pos.left - arrow_offset - this.$popup.outerWidth()
+          });
+          break;
+
+        case 'right':
+          this.$popup.css({
+            'top': pos.top + (this.$el.outerHeight() / 2) - (this.$popup.outerHeight() / 2),
+            'left': pos.left + this.$el.outerWidth() + arrow_offset
+          });
+          break;
+
+        case 'bottom':
+          this.$popup.css({
+            'top': pos.top + this.$el.outerHeight() + arrow_offset,
+            'left': pos.left + (this.$el.outerWidth() / 2) - (this.$popup.outerWidth() / 2)
+          });
+          break;
+
+        case 'top':
+          this.$popup.css({
+            'top': pos.top - this.$popup.outerHeight() - arrow_offset,
+            'left': pos.left + (this.$el.outerWidth() / 2) - (this.$popup.outerWidth() / 2)
+          });
+          break;
+      }
     },
 
     loadPatients: function() {
@@ -73,6 +125,7 @@
         dataType: 'jsonp', // We have JSON, but cross domain :(
         success: $.proxy(function(patients) {
           this.renderProfile(patients.profiles.randomElement());
+          this.positionPopup();
           this.$popup.addClass('loaded');
         }, this)
       });
@@ -82,7 +135,7 @@
       this.$popup.find('.patient-title').text("Fund " + profile.name + "'s Treatment");
       this.$popup.find('.patient-photo').attr('src', profile.profile_url);
       this.$popup.find('.patient-summary').text(profile. promo_description);
-      this.$popup.find('.patient-more-link').attr('href', profile.url);
+      this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
     }
   };
 
