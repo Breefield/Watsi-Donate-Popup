@@ -39,8 +39,10 @@
   Plugin.prototype = {
     init: function () {
       this.popup_align = this.$el.attr('watsi-align') || this.options['align'] || 'top';
+      this.open_on_submit = this.$el.attr('watsi-submit-open') || this.options['submit_open'] || 'no';
 
       this.buildPopupElement();
+      this.findOrInjectCSS();
       this.loadPatients();
 
       this.$el.on('change', $.proxy(function() {
@@ -54,7 +56,8 @@
     // TODO: Move this elsewhere
     buildPopupElement: function () {
       var template = 
-        '<div class="watsi-popup">' + 
+        '<div class="watsi-popup" style="display: none">' +
+          '<span class="css-tester"></span>' + 
           '<div class="info-bar section">' +
             '<a href="https://watsi.org/" target="_blank"><img src="img/watsi-small.png" width="55"/></a>' + 
             '<a class="more" href="https://watsi.org/" target="_blank">what is watsi?</a>' + 
@@ -66,10 +69,54 @@
             '<a class="patient-more-link" href="" target="_blank">Donate</a>' + 
           '</div>' + 
         '</div>';
-      this.$popup = $(template).insertBefore(this.$el);
-      this.$popup.addClass("align-" + (this.popup_align))
-
+      this.$popup = $(template).insertAfter(this.$el);
       this.$popup.parent().css('position', 'relative');
+
+      this.$popup.addClass("align-" + (this.popup_align))
+    },
+
+    findOrInjectCSS: function() {
+      // No CSS found, time to inject
+      if(this.$popup.find('.css-tester').css('background') != 'red') {
+        $('body').append('<link href="css/styles.css" media="all" rel="stylesheet" />');
+      }
+    },
+
+    loadPatients: function() {
+      // TODO: Do not use jsonp.jit.su
+      $.ajax('https://watsi-api-proxy.herokuapp.com/?url=https://watsi.org/fund-treatments.json', {
+        dataType: 'jsonp', // We have JSON, but cross domain :(
+        success: $.proxy(function(patients) {
+          this.current_profile = patients.profiles.randomElement();
+          this.renderProfile(this.current_profile);
+          this.positionPopup();
+          this.$popup.addClass('loaded');
+        }, this)
+      });
+    },
+
+    renderProfile: function(profile) {
+      this.$popup.find('.patient-title').text("Fund " + profile.name + "'s Treatment");
+      this.$popup.find('.patient-photo').attr('src', profile.profile_url);
+      this.$popup.find('.patient-summary').text(profile. promo_description);
+      this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
+
+      this.$popup.find('.patient-more-link').on('click', $.proxy(function() { this.openWatsi() }, this));
+
+      if(this.open_on_submit == true) {
+        this.$el.parent('form').on('submit', $.proxy(function() { this.openWatsi() }, this));
+      }
+
+    },
+
+    openWatsi: function() {
+      console.log(this);
+      var center = {x: ($(window).width() / 2) - (985 / 2), y: 150};
+      var new_window = window.open(this.current_profile.url, '',
+              'height=560,width=985,location=false,toolbar=false,menubar=false,screenX=' + center.x + ',screenY=' + center.y + ',left' + center.x + ',top' + center.y);
+      if(window.focus) new_window.focus();
+
+      this.$popup.removeClass('open');
     },
 
     positionPopup: function() {
@@ -106,42 +153,6 @@
           break;
       }
     },
-
-    loadPatients: function() {
-      // TODO: Do not use jsonp.jit.su
-      $.ajax('http://watsi-api-proxy.herokuapp.com/?url=https://watsi.org/fund-treatments.json', {
-        dataType: 'jsonp', // We have JSON, but cross domain :(
-        success: $.proxy(function(patients) {
-          this.renderProfile(patients.profiles.randomElement());
-          this.positionPopup();
-          this.$popup.addClass('loaded');
-        }, this)
-      });
-    },
-
-    renderProfile: function(profile) {
-      this.$popup.find('.patient-title').text("Fund " + profile.name + "'s Treatment");
-      this.$popup.find('.patient-photo').attr('src', profile.profile_url);
-      this.$popup.find('.patient-summary').text(profile. promo_description);
-      this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
-
-      this.$popup.find('.patient-more-link').on('click', $.proxy(function() {
-        this.openWatsi(profile)
-      }, this));
-      this.$el.parent('form').on('submit', $.proxy(function() {
-        this.openWatsi(profile)
-      }, this));
-
-    },
-
-    openWatsi: function(profile) {
-      var center = {x: ($(window).width() / 2) - (985 / 2), y: 150};
-      var new_window = window.open(profile.url, '',
-              'height=560,width=985,location=false,toolbar=false,menubar=false,screenX=' + center.x + ',screenY=' + center.y + ',left' + center.x + ',top' + center.y);
-      if(window.focus) new_window.focus();
-
-      this.$popup.removeClass('open');
-    }
   };
 
   // A really lightweight plugin wrapper around the constructor,
@@ -153,5 +164,7 @@
       }
     });
   };
+
+  $("[watsi-popup]").watsiDonatePopup();
 
 })( jQuery, window, document );

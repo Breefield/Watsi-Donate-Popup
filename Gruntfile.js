@@ -2,16 +2,15 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    // Banner definitions
-    meta: {
-      banner: "/*\n" +
-        " *  <%= pkg.title || pkg.name %> - v<%= pkg.version %>\n" +
-        " *  <%= pkg.description %>\n" +
-        " *  <%= pkg.homepage %>\n" +
-        " *\n" +
-        " *  Made by <%= pkg.author.name %>\n" +
-        " *  Under <%= pkg.licenses[0].type %> License\n" +
-        " */\n"
+    replace: {
+      example: {
+        src: ['dist/jquery.watsi-popup.js'],
+        dest: 'dist/jquery.watsi-popup.js',
+        replacements: [{ 
+          from: 'css/styles.css',
+          to: 'https://s3.amazonaws.com/watsi-donate-popup/css/styles.css' 
+        }]
+      }
     },
 
     // Concat definitions
@@ -19,9 +18,6 @@ module.exports = function(grunt) {
       dist: {
         src: ["js/jquery.watsi-popup.js"],
         dest: "dist/jquery.watsi-popup.js"
-      },
-      options: {
-        banner: "<%= meta.banner %>"
       }
     },
 
@@ -43,9 +39,6 @@ module.exports = function(grunt) {
       dist: {
         src: ["dist/jquery.watsi-popup.js"],
         dest: "dist/jquery.watsi-popup.min.js"
-      },
-      options: {
-        banner: "<%= meta.banner %>"
       }
     },
 
@@ -97,9 +90,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks("grunt-contrib-uglify");
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-text-replace');
   grunt.loadNpmTasks('grunt-s3-sync');
 
   grunt.registerTask('default', ['watch']);
-  grunt.registerTask('deploy', ['concat', 'uglify', 's3-sync']);
+  grunt.registerTask('deploy', ['concat', 'replace', 'uglify', 's3-sync']);
 
 }

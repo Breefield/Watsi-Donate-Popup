@@ -36,6 +36,9 @@ body {
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1); }
+  .watsi-popup .css-tester {
+    background: red;
+    display: none; }
   .watsi-popup .section {
     padding: 10px;
     border-bottom: 1px solid #dddddd;
