@@ -13,7 +13,7 @@ form {
   form .shirt {
     max-width: 100%;
     margin-bottom: 10px; }
-  form input[type="submit"] {
+  form input[type="button"] {
     display: block;
     background: #8eba00;
     border: 3px solid #8eba00;
@@ -28,7 +28,7 @@ form {
     box-sizing: border-box;
     width: 100%;
     margin-top: 10px; }
-    form input[type="submit"]:active {
+    form input[type="button"]:active {
       outline: none;
       background: transparent;
       color: #8eba00; }
