@@ -44,16 +44,51 @@
       this.buildPopupElement();
       this.findOrInjectCSS();
       this.loadPatients();
+      this.bindEvents();
+    },
 
-      this.$el.on('change', $.proxy(function() {
-        this.positionPopup();
-        this.$popup.toggleClass('open', this.$el.prop('checked'));
-      }, this));
+    bindEvents: function() {
 
+      // Open for different input elements
+      switch(this.$el.attr('type')) {
+        case 'checkbox':
+          this.$el.on('click', $.proxy(function(e) {
+            e.stopPropagation();
+          }, this));
+
+          this.$el.on('change', $.proxy(function(e) {
+            e.stopPropagation();
+            this.positionPopup();
+            console.log('OPEN');
+            this.$popup.toggleClass('open', this.$el.prop('checked'));
+          }, this));
+          break;
+
+        case 'button':
+          this.$el.on('click', $.proxy(function(e) {
+            e.stopPropagation();
+            this.positionPopup();
+            this.$popup.addClass('open');
+          }, this));
+          break;
+      }
+
+      // Close button
       this.$popup.find('.close').on('click', $.proxy(function() {
         this.$popup.removeClass('open');
       }, this));
-    },
+
+      // Click outside
+      $('html').on('click', $.proxy(function() {
+        this.$popup.removeClass('open');
+      }, this));
+
+      // Prevent el from closing itself
+      this.$popup.on('click', function(e) {
+        e.stopPropagation();
+      });
+
+    }, 
 
     // Obviously this is not ideal, but it works
     // considering the popup is fairly simple right now.
@@ -109,7 +144,7 @@
     renderProfile: function(profile) {
       this.$popup.find('.patient-title').text("Fund " + profile.name + "'s Treatment");
       this.$popup.find('.patient-photo').attr('src', profile.profile_url);
-      this.$popup.find('.patient-summary').text(profile. promo_description);
+      this.$popup.find('.patient-summary').html(profile. promo_description.replace(/(\s)([^\s]+?)$/ig, '&nbsp;$2'));
       this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
 
       this.$popup.find('.patient-more-link').on('click', $.proxy(function() { this.openWatsi() }, this));

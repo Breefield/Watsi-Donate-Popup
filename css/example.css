@@ -10,9 +10,8 @@ form {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px; }
-  form .shirt {
-    max-width: 100%;
-    margin-bottom: 10px; }
+  form h1 {
+    margin-top: 0px; }
   form input[type="button"] {
     display: block;
     background: #8eba00;
@@ -28,6 +27,13 @@ form {
     box-sizing: border-box;
     width: 100%;
     margin-top: 10px; }
+    form input[type="button"][watsi-popup] {
+      background: #2d82d4;
+      border-color: #2d82d4; }
+      form input[type="button"][watsi-popup]:active {
+        color: #2d82d4; }
+    form input[type="button"]:focus {
+      outline: none; }
     form input[type="button"]:active {
       outline: none;
       background: transparent;

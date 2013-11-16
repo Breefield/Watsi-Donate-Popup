@@ -44,12 +44,51 @@
       this.buildPopupElement();
       this.findOrInjectCSS();
       this.loadPatients();
-
-      this.$el.on('change', $.proxy(function() {
-        this.positionPopup();
-        this.$popup.toggleClass('open', this.$el.prop('checked'));
-      }, this));
+      this.bindEvents();
     },
+
+    bindEvents: function() {
+
+      // Open for different input elements
+      switch(this.$el.attr('type')) {
+        case 'checkbox':
+          this.$el.on('click', $.proxy(function(e) {
+            e.stopPropagation();
+          }, this));
+
+          this.$el.on('change', $.proxy(function(e) {
+            e.stopPropagation();
+            this.positionPopup();
+            console.log('OPEN');
+            this.$popup.toggleClass('open', this.$el.prop('checked'));
+          }, this));
+          break;
+
+        case 'button':
+          this.$el.on('click', $.proxy(function(e) {
+            e.stopPropagation();
+            this.positionPopup();
+            this.$popup.addClass('open');
+          }, this));
+          break;
+      }
+
+      // Close button
+      this.$popup.find('.close').on('click', $.proxy(function() {
+        this.$popup.removeClass('open');
+      }, this));
+
+      // Click outside
+      $('html').on('click', $.proxy(function() {
+        this.$popup.removeClass('open');
+      }, this));
+
+      // Prevent el from closing itself
+      this.$popup.on('click', function(e) {
+        e.stopPropagation();
+      });
+
+    }, 
 
     // Obviously this is not ideal, but it works
     // considering the popup is fairly simple right now.
@@ -60,7 +99,7 @@
           '<span class="css-tester"></span>' + 
           '<div class="info-bar section">' +
             '<a href="https://watsi.org/" target="_blank"><img src="img/watsi-small.png" width="55"/></a>' + 
-            '<a class="more" href="https://watsi.org/" target="_blank">what is watsi?</a>' + 
+            '<span class="close">&#10006;</span>' + 
           '</div>' + 
           '<div class="patient section cf">' + 
             '<h1 class="patient-title"></h1>' + 
@@ -105,7 +144,7 @@
     renderProfile: function(profile) {
       this.$popup.find('.patient-title').text("Fund " + profile.name + "'s Treatment");
       this.$popup.find('.patient-photo').attr('src', profile.profile_url);
-      this.$popup.find('.patient-summary').text(profile. promo_description);
+      this.$popup.find('.patient-summary').html(profile. promo_description.replace(/(\s)([^\s]+?)$/ig, '&nbsp;$2'));
       this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
 
       this.$popup.find('.patient-more-link').on('click', $.proxy(function() { this.openWatsi() }, this));
@@ -117,7 +156,6 @@
     },
 
     openWatsi: function() {
-      console.log(this);
       var center = {x: ($(window).width() / 2) - (985 / 2), y: 150};
       var new_window = window.open(this.current_profile.url, '',
               'height=560,width=985,location=false,toolbar=false,menubar=false,screenX=' + center.x + ',screenY=' + center.y + ',left' + center.x + ',top' + center.y);
