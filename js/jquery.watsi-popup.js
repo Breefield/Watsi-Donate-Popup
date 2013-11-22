@@ -40,6 +40,9 @@
     init: function () {
       this.popup_align = this.$el.attr('watsi-align') || this.options['align'] || 'top';
       this.open_on_submit = this.$el.attr('watsi-submit-open') || this.options['submit_open'] || 'no';
+      this.show_funding = true;
+      if(this.$el.attr('watsi-funding') == 'false') { this.show_funding = false; }
+      if(this.options['funding'] == 'false') { this.show_funding = false; }
 
       this.buildPopupElement();
       this.findOrInjectCSS();
@@ -59,7 +62,6 @@
           this.$el.on('change', $.proxy(function(e) {
             e.stopPropagation();
             this.positionPopup();
-            console.log('OPEN');
             this.$popup.toggleClass('open', this.$el.prop('checked'));
           }, this));
           break;
@@ -103,6 +105,11 @@
           '</div>' + 
           '<div class="patient section cf">' + 
             '<h1 class="patient-title"></h1>' + 
+            '<div class="patient-funded-title cf">' +
+              '<span class="patient-percent-funded"></span>' + 
+              '<span class="patient-funded-amount"></span>' + 
+            '</div>' + 
+            '<div class="patient-funding"><div class="patient-funded"></div></div>' + 
             '<img class="patient-photo" src=""/>' + 
             '<p class="patient-summary"></p>' + 
             '<a class="patient-more-link" href="" target="_blank">Donate</a>' + 
@@ -110,6 +117,7 @@
         '</div>';
       this.$popup = $(template).insertAfter(this.$el);
       this.$popup.parent().css('position', 'relative');
+      this.$popup.find('.patient-funded-title,.patient-funding').toggle(!!this.show_funding);
 
       this.$popup.addClass("align-" + (this.popup_align))
     },
@@ -146,6 +154,9 @@
       this.$popup.find('.patient-photo').attr('src', profile.profile_url);
       this.$popup.find('.patient-summary').html(profile. promo_description.replace(/(\s)([^\s]+?)$/ig, '&nbsp;$2'));
       this.$popup.find('.patient-more-link').attr('href', profile.url + '?from=popup');
+      this.$popup.find('.patient-funded').css('width', profile.per_cent_funded);
+      this.$popup.find('.patient-percent-funded').text(profile.per_cent_funded);
+      this.$popup.find('.patient-funded-amount').text(profile.target_to_go);
 
       this.$popup.find('.patient-more-link').on('click', $.proxy(function() { this.openWatsi() }, this));
 
